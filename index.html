@@ -1,0 +1,715 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malu | Ecossistema Digital, IA & Produtividade de Alta Performance</title>
+    <!-- Google Fonts: Plus Jakarta Sans e Playfair Display para elegância -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        obsidian: {
+                            950: '#070709',
+                            900: '#0D0E12',
+                            800: '#15171E',
+                            700: '#1F222C',
+                        },
+                        gold: {
+                            300: '#FDE08D',
+                            400: '#F5C451',
+                            500: '#D4AF37',
+                            600: '#B59020',
+                        }
+                    },
+                    backgroundImage: {
+                        'gold-gradient': 'linear-gradient(135deg, #F5C451 0%, #D4AF37 50%, #B59020 100%)',
+                        'dark-radial': 'radial-gradient(circle at top center, rgba(212, 175, 55, 0.12) 0%, rgba(7, 7, 9, 0) 60%)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Efeitos personalizados de vidro e brilho dourado */
+        body {
+            background-color: #070709;
+            color: #F3F4F6;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(21, 23, 30, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            border-color: rgba(245, 196, 81, 0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(212, 175, 55, 0.15);
+        }
+        .text-gold-gradient {
+            background: linear-gradient(135deg, #FDE08D 0%, #D4AF37 60%, #B59020 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease-out, padding 0.35s ease;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding-top: 1rem;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-gold-500 selection:text-obsidian-950">
+
+    <!-- ==================== CABEÇALHO / NAVBAR ==================== -->
+    <header class="fixed top-0 left-0 right-0 z-40 bg-obsidian-950/85 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo Tipográfico + Símbolo Exclusivo 'Malu' -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-obsidian-800 border border-gold-500/40 flex items-center justify-center shadow-lg shadow-gold-500/10 group-hover:border-gold-400 transition">
+                        <!-- Ícone SVG Minimalista Monograma M + Brilho Digital -->
+                        <svg class="w-6 h-6 text-gold-400" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 24V8L16 18L27 8V24" stroke="url(#gold_grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="16" cy="7" r="2" fill="#FDE08D"/>
+                            <defs>
+                                <linearGradient id="gold_grad" x1="5" y1="8" x2="27" y2="24" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#FDE08D"/>
+                                    <stop offset="0.5" stop-color="#D4AF37"/>
+                                    <stop offset="1" stop-color="#B59020"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-serif text-2xl font-bold tracking-wider text-white leading-none">
+                            Malu<span class="text-gold-400">.</span>
+                        </span>
+                        <span class="text-[10px] uppercase tracking-[0.25em] text-gold-400/80 font-medium mt-0.5">Digital Studio</span>
+                    </div>
+                </a>
+
+                <!-- Links de Navegação Desktop -->
+                <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+                    <a href="#beneficios" class="hover:text-gold-400 transition">O Ecossistema</a>
+                    <a href="#produtos" class="hover:text-gold-400 transition">Produtos Digitais</a>
+                    <a href="#depoimentos" class="hover:text-gold-400 transition">Resultados</a>
+                    <a href="#faq" class="hover:text-gold-400 transition">Dúvidas</a>
+                </nav>
+
+                <!-- Botão CTA Header -->
+                <div class="flex items-center gap-3">
+                    <a href="#produtos" class="px-5 py-2.5 rounded-full bg-gold-gradient text-obsidian-950 font-semibold text-sm shadow-lg shadow-gold-500/20 hover:brightness-110 transition transform active:scale-95">
+                        Explorar Acervo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== SEÇÃO HERO ==================== -->
+    <section class="relative pt-32 pb-20 lg:pt-44 lg:pb-32 bg-dark-radial overflow-hidden">
+        <!-- Elementos decorativos de fundo -->
+        <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gold-500/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <!-- Badge Superior -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-obsidian-800/90 border border-gold-500/30 text-gold-300 text-xs sm:text-sm font-medium mb-8">
+                <span class="w-2 h-2 rounded-full bg-gold-400 animate-pulse"></span>
+                <span>100% Digital • Zero Estoque • Escala Global</span>
+            </div>
+
+            <!-- Título Principal (Headline) -->
+            <h1 class="font-serif text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight text-white max-w-4xl mx-auto leading-[1.12]">
+                Transforme Conhecimento e <span class="text-gold-gradient italic">Inteligência Artificial</span> em Liberdade Financeira.
+            </h1>
+
+            <!-- Subtítulo -->
+            <p class="mt-6 text-base sm:text-lg lg:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed font-light">
+                Construa uma operação digital altamente lucrativa sem produtos físicos, sem logística e sem fronteiras. Acesse os métodos, prompts e sistemas validados da <strong class="text-white font-medium">Malu</strong> para criar, automatizar e vender todos os dias.
+            </p>
+
+            <!-- Botões de Ação Hero -->
+            <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#produtos" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gold-gradient text-obsidian-950 font-bold text-base shadow-xl shadow-gold-500/25 hover:brightness-110 transition flex items-center justify-center gap-2">
+                    <span>Começar Minha Jornada Digital</span>
+                    <i class="fa-solid fa-arrow-right text-sm"></i>
+                </a>
+                <a href="#beneficios" class="w-full sm:w-auto px-8 py-4 rounded-full bg-obsidian-800 text-white border border-white/10 hover:border-gold-500/40 font-medium text-base transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-play text-gold-400 text-xs"></i>
+                    <span>Como Funciona o Modelo</span>
+                </a>
+            </div>
+
+            <!-- Métricas / Números de Autoridade -->
+            <div class="mt-16 pt-10 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                <div>
+                    <div class="text-2xl sm:text-3xl font-bold text-white">+14.500</div>
+                    <div class="text-xs sm:text-sm text-gray-400 mt-1">Alunos e Criadores</div>
+                </div>
+                <div>
+                    <div class="text-2xl sm:text-3xl font-bold text-gold-400">100%</div>
+                    <div class="text-xs sm:text-sm text-gray-400 mt-1">Entrega Automatizada</div>
+                </div>
+                <div>
+                    <div class="text-2xl sm:text-3xl font-bold text-white">27 Países</div>
+                    <div class="text-xs sm:text-sm text-gray-400 mt-1">Alcance Internacional</div>
+                </div>
+                <div>
+                    <div class="text-2xl sm:text-3xl font-bold text-gold-400">4.9/5.0</div>
+                    <div class="text-xs sm:text-sm text-gray-400 mt-1">Avaliação dos Clientes</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SEÇÃO DE BENEFÍCIOS ==================== -->
+    <section id="beneficios" class="py-20 lg:py-28 bg-obsidian-900 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-gold-400 text-xs font-bold uppercase tracking-[0.2em]">Por que o Digital?</span>
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white mt-3">
+                    O Ecossistema Perfeito Para Escalar Sem Barreiras
+                </h2>
+                <p class="text-gray-400 mt-4 text-base sm:text-lg">
+                    Esqueça estoques, fretes ou limites geográficos. Com ativos digitais e IA, você cria uma única vez e vende infinitamente.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass-card p-8 rounded-2xl">
+                    <div class="w-12 h-12 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl mb-6">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Aceleração com IA</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Utilize engenharia de prompts avançada para produzir conteúdos, copys, designs e infoprodutos em uma fração do tempo tradicional.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card p-8 rounded-2xl">
+                    <div class="w-12 h-12 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl mb-6">
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Vendas Sem Fronteiras</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Seu negócio aberto 24 horas por dia, atraindo clientes do Brasil e do mundo todo com entrega imediata direto no e-mail do comprador.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card p-8 rounded-2xl">
+                    <div class="w-12 h-12 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 text-xl mb-6">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Margem de Lucro Máxima</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Sem custos de reposição de mercadoria ou galpões. Cada nova venda representa lucro quase integral direto no seu caixa.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== VITRINE DE PRODUTOS DIGITAIS ==================== -->
+    <section id="produtos" class="py-20 lg:py-28 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-gold-400 text-xs font-bold uppercase tracking-[0.2em]">Vitrine Oficial Malu</span>
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white mt-3">
+                    Soluções Digitais Prontas Para Implementar
+                </h2>
+                <p class="text-gray-400 mt-4 text-base sm:text-lg">
+                    Escolha o nível ideal para o seu momento atual e tenha acesso imediato à nossa área de membros exclusiva.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+                
+                <!-- Produto 1: E-book / Guia Definitivo -->
+                <div class="glass-card rounded-3xl p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="px-3 py-1 rounded-full bg-white/5 text-gray-300 text-xs font-semibold uppercase tracking-wider">Iniciante & Essencial</span>
+                            <i class="fa-solid fa-book-open text-gold-400 text-xl"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-white">Guia Definitivo: Império Sem Estoque</h3>
+                        <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+                            O mapa completo passo a passo para estruturar sua marca digital do zero, escolher micro-nichos lucrativos e realizar suas primeiras vendas online.
+                        </p>
+
+                        <ul class="mt-6 space-y-3 text-sm text-gray-300 border-t border-white/10 pt-6">
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-check text-gold-400"></i>
+                                <span>E-book Interativo (+180 páginas)</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-check text-gold-400"></i>
+                                <span>Checklist de Lançamento em 7 Dias</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-check text-gold-400"></i>
+                                <span>Lista de 50 Nichos Ocultos Altamente Rentáveis</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-check text-gold-400"></i>
+                                <span>Acesso Vitalício + Atualizações</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-white/10">
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-sm text-gray-400 line-through">R$ 147,00</span>
+                            <span class="text-3xl font-bold text-white">R$ 67,00</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1">Pagamento único • Acesso imediato</p>
+
+                        <button onclick="openCheckout('Guia Definitivo: Império Sem Estoque', 'R$ 67,00')" class="mt-6 w-full py-3.5 px-6 rounded-xl bg-obsidian-700 hover:bg-gold-500 text-white hover:text-obsidian-950 font-bold text-sm border border-gold-500/30 transition duration-300 flex items-center justify-center gap-2">
+                            <span>Adquirir Guia Agora</span>
+                            <i class="fa-solid fa-lock text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Produto 2: Pacote de Templates & Prompts (DESTAQUE) -->
+                <div class="glass-card rounded-3xl p-8 flex flex-col justify-between border-2 border-gold-400/70 relative shadow-2xl shadow-gold-500/10 lg:-translate-y-4">
+                    <!-- Tag Mais Vendido -->
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gold-gradient text-obsidian-950 text-xs font-extrabold uppercase tracking-wider shadow-lg">
+                        ★ Mais Escolhido
+                    </div>
+
+                    <div>
+                        <div class="flex items-center justify-between mb-6 mt-2">
+                            <span class="px-3 py-1 rounded-full bg-gold-500/20 text-gold-300 text-xs font-semibold uppercase tracking-wider">Aceleração Máxima</span>
+                            <i class="fa-solid fa-microchip text-gold-400 text-xl"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-white">Cofre Malu: +500 Prompts de IA & Templates Notion</h3>
+                        <p class="text-gray-300 text-sm mt-3 leading-relaxed">
+                            Copie, cole e automatize toda a sua criação de conteúdo, páginas de vendas, roteiros virais e gestão completa do seu negócio digital em segundos.
+                        </p>
+
+                        <ul class="mt-6 space-y-3 text-sm text-gray-200 border-t border-white/10 pt-6">
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-check text-gold-400"></i>
+                                <span>+500 Prompts de Engenharia para ChatGPT & Claude</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-check text-gold-400"></i>
+                                <span>Painel Operacional Completo no Notion</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-check text-gold-400"></i>
+                                <span>Templates Editáveis no Canva (Carrosséis & Stories)</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-check text-gold-400"></i>
+                                <span>Gerador de Identidade Visual & Copywriting</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-check text-gold-400"></i>
+                                <span>Bônus: Guia de Tráfego Orgânico Global</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-white/10">
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-sm text-gray-400 line-through">R$ 297,00</span>
+                            <span class="text-4xl font-bold text-gold-400">R$ 147,00</span>
+                        </div>
+                        <p class="text-xs text-gray-300 mt-1">Ou 12x de R$ 14,76 • Acesso vitalício</p>
+
+                        <button onclick="openCheckout('Cofre Malu: +500 Prompts de IA & Templates', 'R$ 147,00')" class="mt-6 w-full py-4 px-6 rounded-xl bg-gold-gradient text-obsidian-950 font-extrabold text-sm shadow-lg shadow-gold-500/25 hover:brightness-110 transition duration-300 flex items-center justify-center gap-2">
+                            <span>Garantir Acesso ao Cofre</span>
+                            <i class="fa-solid fa-bolt"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Produto 3: Comunidade & Mentoria VIP -->
+                <div class="glass-card rounded-3xl p-8 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="px-3 py-1 rounded-full bg-white/5 text-gold-300 text-xs font-semibold uppercase tracking-wider">Exclusivo & High-Ticket</span>
+                            <i class="fa-solid fa-crown text-gold-400 text-xl"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-white">Mentoria & Clube Privado Malu VIP</h3>
+                        <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+                            Acompanhamento estratégico próximo, networking com empreendedores digitais e acesso irrestrito a todos os lançamentos e ferramentas da marca.
+                        </p>
+
+                        <ul class="mt-6 space-y-3 text-sm text-gray-300 border-t border-white/10 pt-6">
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-check text-gold-400"></i>
+                                <span>Encontros Quinzenais Ao Vivo de Análise</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-check text-gold-400"></i>
+                                <span>Comunidade Exclusiva de Networking</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-check text-gold-400"></i>
+                                <span>Inclui o Guia Definitivo + Cofre de Prompts</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fa-solid fa-check text-gold-400"></i>
+                                <span>Suporte Prioritário Individual</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-white/10">
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-sm text-gray-400 line-through">R$ 997,00</span>
+                            <span class="text-3xl font-bold text-white">R$ 497,00</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1">Ou 12x de R$ 49,90 • Vagas limitadas</p>
+
+                        <button onclick="openCheckout('Mentoria & Clube Privado Malu VIP', 'R$ 497,00')" class="mt-6 w-full py-3.5 px-6 rounded-xl bg-obsidian-700 hover:bg-gold-500 text-white hover:text-obsidian-950 font-bold text-sm border border-gold-500/30 transition duration-300 flex items-center justify-center gap-2">
+                            <span>Aplicar Para a Mentoria</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== DEPOIMENTOS E PROVA SOCIAL ==================== -->
+    <section id="depoimentos" class="py-20 lg:py-28 bg-obsidian-900 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-gold-400 text-xs font-bold uppercase tracking-[0.2em]">Prova Social</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white mt-3">
+                    Quem Aplica o Método Malu Transforma Resultados
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Depoimento 1 -->
+                <div class="glass-card p-7 rounded-2xl">
+                    <div class="flex text-gold-400 text-xs gap-1 mb-4">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm italic leading-relaxed">
+                        "Eu queria muito empreender sem precisar investir em estoque ou loja física. Com o Cofre de Prompts da Malu, criei meu primeiro e-book em um fim de semana e já faturei 4x o valor investido!"
+                    </p>
+                    <div class="flex items-center gap-3 mt-6 pt-4 border-t border-white/10">
+                        <div class="w-10 h-10 rounded-full bg-gold-500/20 border border-gold-400 flex items-center justify-center font-bold text-gold-300 text-sm">
+                            CS
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold text-white">Camila Soares</div>
+                            <div class="text-xs text-gray-400">Criadora Digital • São Paulo, SP</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depoimento 2 -->
+                <div class="glass-card p-7 rounded-2xl">
+                    <div class="flex text-gold-400 text-xs gap-1 mb-4">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm italic leading-relaxed">
+                        "Os templates do Notion organizaram completamente a minha rotina. Hoje atendo clientes de Portugal e do Brasil vendendo pacotes digitais automatizados. Recomendo de olhos fechados."
+                    </p>
+                    <div class="flex items-center gap-3 mt-6 pt-4 border-t border-white/10">
+                        <div class="w-10 h-10 rounded-full bg-gold-500/20 border border-gold-400 flex items-center justify-center font-bold text-gold-300 text-sm">
+                            RM
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold text-white">Rafael Mendes</div>
+                            <div class="text-xs text-gray-400">Estrategista de IA • Lisboa, PT</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depoimento 3 -->
+                <div class="glass-card p-7 rounded-2xl">
+                    <div class="flex text-gold-400 text-xs gap-1 mb-4">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm italic leading-relaxed">
+                        "A estética e a didática da Malu são impecáveis. Não é teoria vazia: você abre o material, aplica os comandos e vê o projeto ganhar vida no mesmo dia."
+                    </p>
+                    <div class="flex items-center gap-3 mt-6 pt-4 border-t border-white/10">
+                        <div class="w-10 h-10 rounded-full bg-gold-500/20 border border-gold-400 flex items-center justify-center font-bold text-gold-300 text-sm">
+                            JL
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold text-white">Juliana Lima</div>
+                            <div class="text-xs text-gray-400">Infoprodutora • Goiânia, GO</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PERGUNTAS FREQUENTES (FAQ ACORDEÃO) ==================== -->
+    <section id="faq" class="py-20 lg:py-28">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14">
+                <span class="text-gold-400 text-xs font-bold uppercase tracking-[0.2em]">Tire Suas Dúvidas</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white mt-3">
+                    Perguntas Frequentes
+                </h2>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Item 1 -->
+                <div class="faq-item glass-card rounded-2xl p-6 cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex items-center justify-between gap-4">
+                        <h3 class="font-semibold text-white text-base sm:text-lg">Preciso aparecer ou ter milhares de seguidores para começar?</h3>
+                        <i class="fa-solid fa-chevron-down text-gold-400 faq-icon transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-answer text-gray-400 text-sm leading-relaxed">
+                        De forma alguma. Grande parte dos negócios digitais mais lucrativos hoje opera no modelo "dark" ou focado na marca (como a própria estrutura que ensinamos), utilizando conteúdo estratégico, automação e inteligência artificial para atrair compradores qualificados sem depender de fama.
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="faq-item glass-card rounded-2xl p-6 cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex items-center justify-between gap-4">
+                        <h3 class="font-semibold text-white text-base sm:text-lg">Como recebo acesso aos produtos digitais após a compra?</h3>
+                        <i class="fa-solid fa-chevron-down text-gold-400 faq-icon transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-answer text-gray-400 text-sm leading-relaxed">
+                        Imediatamente após a confirmação do pagamento, você recebe um e-mail automático com seu login e senha exclusivos para acessar nossa plataforma de membros, onde poderá baixar os guias, duplicar os templates do Notion e copiar todos os prompts.
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="faq-item glass-card rounded-2xl p-6 cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex items-center justify-between gap-4">
+                        <h3 class="font-semibold text-white text-base sm:text-lg">Os prompts funcionam na versão gratuita das Inteligências Artificiais?</h3>
+                        <i class="fa-solid fa-chevron-down text-gold-400 faq-icon transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-answer text-gray-400 text-sm leading-relaxed">
+                        Sim! Todos os comandos do Cofre Malu foram testados e otimizados para funcionar perfeitamente tanto nas versões gratuitas quanto nas versões Pro do ChatGPT, Claude, Gemini e ferramentas de imagem.
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="faq-item glass-card rounded-2xl p-6 cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex items-center justify-between gap-4">
+                        <h3 class="font-semibold text-white text-base sm:text-lg">Existe garantia de satisfação?</h3>
+                        <i class="fa-solid fa-chevron-down text-gold-400 faq-icon transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-answer text-gray-400 text-sm leading-relaxed">
+                        Com certeza. Você conta com 7 dias de garantia incondicional. Se dentro desse período sentir que o material não superou suas expectativas, basta solicitar o reembolso com um clique e devolvemos 100% do seu investimento.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== RODAPÉ PROFISSIONAL ==================== -->
+    <footer class="bg-obsidian-950 border-t border-white/10 pt-16 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+                <!-- Coluna Marca -->
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-lg bg-obsidian-800 border border-gold-500/40 flex items-center justify-center">
+                            <span class="font-serif font-bold text-gold-400 text-lg">M</span>
+                        </div>
+                        <span class="font-serif text-2xl font-bold text-white">Malu<span class="text-gold-400">.</span></span>
+                    </div>
+                    <p class="text-gray-400 text-sm mt-4 max-w-sm leading-relaxed">
+                        Educação digital, engenharia de prompts e ativos de alta performance para quem deseja construir liberdade geográfica e financeira através da internet.
+                    </p>
+                    <div class="flex items-center gap-4 mt-6">
+                        <a href="#" aria-label="Instagram" class="w-10 h-10 rounded-full bg-obsidian-800 hover:bg-gold-500 text-gray-300 hover:text-obsidian-950 flex items-center justify-center transition">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" aria-label="TikTok" class="w-10 h-10 rounded-full bg-obsidian-800 hover:bg-gold-500 text-gray-300 hover:text-obsidian-950 flex items-center justify-center transition">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="#" aria-label="YouTube" class="w-10 h-10 rounded-full bg-obsidian-800 hover:bg-gold-500 text-gray-300 hover:text-obsidian-950 flex items-center justify-center transition">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Links Rápidos -->
+                <div>
+                    <h4 class="text-white font-semibold text-sm uppercase tracking-wider mb-4">Navegação</h4>
+                    <ul class="space-y-2.5 text-sm text-gray-400">
+                        <li><a href="#beneficios" class="hover:text-gold-400 transition">Por que o Digital</a></li>
+                        <li><a href="#produtos" class="hover:text-gold-400 transition">Produtos & Templates</a></li>
+                        <li><a href="#depoimentos" class="hover:text-gold-400 transition">Histórias de Sucesso</a></li>
+                        <li><a href="#faq" class="hover:text-gold-400 transition">Perguntas Frequentes</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal & Suporte -->
+                <div>
+                    <h4 class="text-white font-semibold text-sm uppercase tracking-wider mb-4">Institucional</h4>
+                    <ul class="space-y-2.5 text-sm text-gray-400">
+                        <li><a href="#produtos" class="hover:text-gold-400 transition">Área de Membros</a></li>
+                        <li><a href="#faq" class="hover:text-gold-400 transition">Termos de Uso</a></li>
+                        <li><a href="#faq" class="hover:text-gold-400 transition">Política de Privacidade</a></li>
+                        <li><span class="text-gray-500">suporte@maludigital.com.br</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-4">
+                <p>&copy; 2026 Malu Digital Studio. Todos os direitos reservados.</p>
+                <p class="flex items-center gap-2">
+                    <i class="fa-solid fa-shield-halved text-gold-400"></i>
+                    <span>Ambiente 100% Seguro • Entrega Digital Imediata</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== MODAL SIMULADO DE CHECKOUT ==================== -->
+    <div id="checkoutModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+        <div class="bg-obsidian-800 border border-gold-500/40 rounded-3xl max-w-md w-full p-6 sm:p-8 relative shadow-2xl animate-[fadeIn_0.2s_ease-out]">
+            <!-- Botão Fechar -->
+            <button onclick="closeCheckout()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Cabeçalho Modal -->
+            <div class="flex items-center gap-2 text-gold-400 text-xs font-bold uppercase tracking-wider mb-2">
+                <i class="fa-solid fa-lock"></i>
+                <span>Checkout Rápido & Seguro</span>
+            </div>
+            <h3 id="modalProductTitle" class="font-serif text-xl sm:text-2xl font-bold text-white">Produto Selecionado</h3>
+            <div class="mt-2 inline-block px-3 py-1 rounded-lg bg-gold-500/15 text-gold-300 font-bold text-lg" id="modalProductPrice">
+                R$ 0,00
+            </div>
+
+            <!-- Formulário Simulado -->
+            <form id="checkoutForm" onsubmit="processSimulatedPayment(event)" class="mt-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-gray-300 mb-1.5">Seu Nome Completo</label>
+                    <input type="text" required placeholder="Ex: Maria Luiza" class="w-full px-4 py-3 rounded-xl bg-obsidian-950 border border-white/10 text-white text-sm focus:outline-none focus:border-gold-400">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-300 mb-1.5">Melhor E-mail (Para envio do acesso)</label>
+                    <input type="email" required placeholder="seuemail@exemplo.com" class="w-full px-4 py-3 rounded-xl bg-obsidian-950 border border-white/10 text-white text-sm focus:outline-none focus:border-gold-400">
+                </div>
+
+                <!-- Seleção Método de Pagamento -->
+                <div>
+                    <label class="block text-xs font-medium text-gray-300 mb-1.5">Forma de Pagamento</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="payment" value="pix" checked class="peer sr-only">
+                            <div class="p-3 rounded-xl bg-obsidian-950 border border-white/10 peer-checked:border-gold-400 peer-checked:bg-gold-500/10 text-center text-xs font-semibold text-white transition">
+                                <i class="fa-brands fa-pix text-gold-400 mr-1"></i> PIX (Imediato)
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="payment" value="card" class="peer sr-only">
+                            <div class="p-3 rounded-xl bg-obsidian-950 border border-white/10 peer-checked:border-gold-400 peer-checked:bg-gold-500/10 text-center text-xs font-semibold text-white transition">
+                                <i class="fa-regular fa-credit-card text-gold-400 mr-1"></i> Cartão até 12x
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-4 rounded-xl bg-gold-gradient text-obsidian-950 font-extrabold text-sm shadow-lg shadow-gold-500/20 hover:brightness-110 transition mt-2">
+                    Finalizar Pedido Digital
+                </button>
+            </form>
+
+            <!-- Mensagem de Sucesso (Oculta inicialmente) -->
+            <div id="checkoutSuccess" class="hidden text-center py-6">
+                <div class="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-400 text-emerald-400 flex items-center justify-center text-2xl mx-auto mb-4">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h4 class="font-serif text-2xl font-bold text-white">Acesso Liberado!</h4>
+                <p class="text-gray-300 text-sm mt-2 leading-relaxed">
+                    Parabéns pela decisão! Enviamos os dados de acesso da <strong class="text-gold-400">Malu Digital</strong> para o seu e-mail cadastrado.
+                </p>
+                <button onclick="closeCheckout()" class="mt-6 px-6 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition">
+                    Voltar para a Página
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SCRIPTS DE INTERATIVIDADE ==================== -->
+    <script>
+        // Controle do Acordeão de FAQ
+        function toggleFaq(element) {
+            const allItems = document.querySelectorAll('.faq-item');
+            allItems.forEach(item => {
+                if (item !== element) {
+                    item.classList.remove('active');
+                }
+            });
+            element.classList.toggle('active');
+        }
+
+        // Controle do Modal de Checkout Simulado
+        const modal = document.getElementById('checkoutModal');
+        const modalTitle = document.getElementById('modalProductTitle');
+        const modalPrice = document.getElementById('modalProductPrice');
+        const checkoutForm = document.getElementById('checkoutForm');
+        const checkoutSuccess = document.getElementById('checkoutSuccess');
+
+        function openCheckout(productName, productPrice) {
+            modalTitle.textContent = productName;
+            modalPrice.textContent = productPrice;
+            checkoutForm.classList.remove('hidden');
+            checkoutSuccess.classList.add('hidden');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeCheckout() {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function processSimulatedPayment(e) {
+            e.preventDefault();
+            checkoutForm.classList.add('hidden');
+            checkoutSuccess.classList.remove('hidden');
+        }
+
+        // Fechar modal ao clicar fora da caixa
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeCheckout();
+            }
+        });
+    </script>
+</body>
+</html>
+```
